@@ -3,19 +3,23 @@ var fs      = require("fs"),
     cors    = require('cors'),  //https://npmjs.org/package/cors
     app     = express();
 
-app.get("/ServerDate.js", cors(), function(req, res){
+var corsOptions = {
+  origin: '*'
+};
+
+app.get("/ServerDate.js", cors(corsOptions), function(req, res,next){
     fs.readFile('../lib/ServerDate.js', 'utf8', function (err, data) {
         var now = Date.now();
         if (err)
             res.status(500);
         else {
             res.set("Content-Type", "text/javascript");
-            res.send(data + "(" + now + ");\n");
+            res.send(data + "(" + now + " , " + "'/time'" + ");\n");
         }
     });
 });
 
-app.get("/time",function(req,res){
+app.get("/time", cors(corsOptions),function(req,res,next){
     var now = Date.now();
     res.set("Content-Type","application/json");
     res.json(now);

@@ -70,6 +70,7 @@ along with ServerDate.  If not, see <http://www.gnu.org/licenses/>.
         <script src="ServerDate.js"></script>
         <script type="application/javascript">
             var iteration = 0;
+            var intervalTime = 1000;
             var table = document.getElementById('comparison-table-body');
             
             // Display two real time clocks, the server's and the client's, and show the
@@ -92,7 +93,7 @@ along with ServerDate.  If not, see <http://www.gnu.org/licenses/>.
             
             // Display the clocks and update them every second.
             updateClocks();
-            setInterval(updateClocks, 1000);
+            setInterval(updateClocks, intervalTime);
         </script>
     </BODY>
 </HTML>
