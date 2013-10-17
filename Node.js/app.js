@@ -1,24 +1,24 @@
-var fs = require("fs"),
+var fs      = require("fs"),
     express = require('express'),
-    app = express();
+    cors    = require('cors'),  //https://npmjs.org/package/cors
+    app     = express();
 
-app.get("/ServerDate.js", function(req, res){
+app.get("/ServerDate.js", cors(), function(req, res){
     fs.readFile('../lib/ServerDate.js', 'utf8', function (err, data) {
         var now = Date.now();
-
         if (err)
             res.status(500);
         else {
-            if (req.query.time) {
-                res.set("Content-Type", "application/json");
-                res.json(now);
-            }
-            else {
-                res.set("Content-Type", "text/javascript");
-                res.send(data + "(" + now + ");\n");
-            }
+            res.set("Content-Type", "text/javascript");
+            res.send(data + "(" + now + ");\n");
         }
     });
+});
+
+app.get("/time",function(req,res){
+    var now = Date.now();
+    res.set("Content-Type","application/json");
+    res.json(now);
 });
 
 app.get("/", function(req, res){
